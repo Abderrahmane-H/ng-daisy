@@ -2,6 +2,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@hilali/ng-daisy": ["./projects/hilali/ng-daisy"],
+      "@hilali/ng-daisy/*": ["./projects/hilali/ng-daisy/*"]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
