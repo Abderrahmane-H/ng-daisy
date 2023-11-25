@@ -1,0 +1,22 @@
+default:
+  interruptible: false
+  image: node:latest
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@latest --activate
+    - pnpm install
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - pnpm run build
+
+test:
+  stage: test
+  script:
+    - pnpm run test
