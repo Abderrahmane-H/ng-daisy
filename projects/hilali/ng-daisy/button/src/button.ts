@@ -10,14 +10,14 @@ export class Button {
    * button type, defines the button style
    */
   @Input()
-  set type(type: "fill" | "outline" | "ghost") {
-    if (type === "fill") {
+  set variant(variant: "fill" | "outline" | "ghost") {
+    if (variant === "fill") {
       this.renderer.removeClass(this.el.nativeElement, "btn-outline");
       this.renderer.removeClass(this.el.nativeElement, "btn-ghost");
-    } else if (type === "outline") {
+    } else if (variant === "outline") {
       this.renderer.removeClass(this.el.nativeElement, "btn-ghost");
       this.renderer.addClass(this.el.nativeElement, "btn-outline");
-    } else if (type === "ghost") {
+    } else if (variant === "ghost") {
       this.renderer.removeClass(this.el.nativeElement, "btn-outline");
       this.renderer.addClass(this.el.nativeElement, "btn-ghost");
     }
@@ -117,7 +117,7 @@ export class Button {
     const loading = this.renderer.createElement("span");
     this.renderer.addClass(loading, "loading");
     this.renderer.addClass(loading, "loading-spinner");
-    this.renderer.appendChild(this.el.nativeElement, loading)
+    this.renderer.insertBefore(this.el.nativeElement, loading, this.el.nativeElement.firstChild)
   }
 
   /**

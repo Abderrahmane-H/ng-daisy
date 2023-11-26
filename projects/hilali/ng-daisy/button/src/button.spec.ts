@@ -30,17 +30,17 @@ describe('Button', () => {
 
   describe('type', () => {
     it('should set the type to fill', () => {
-      button.type = "fill";
+      button.variant = "fill";
       fixture.detectChanges();
       expect(buttonElement.classList.contains("btn-outline")).toBe(false);
       expect(buttonElement.classList.contains("btn-ghost")).toBe(false);
     });
     it('should set the type to outline', () => {
-      button.type = "outline";
+      button.variant = "outline";
       expect(buttonElement.classList.contains("btn-outline")).toBe(true);
     });
     it('should set the type to ghost', () => {
-      button.type = "ghost";
+      button.variant = "ghost";
       expect(buttonElement.classList.contains("btn-ghost")).toBe(true);
     });
   })
