@@ -1,0 +1,16 @@
+<button dai-button variant="fill" color="primary" (click)="openModal()">
+  open modal
+</button>
+
+<dai-modal
+  [hasBackdrop]="true"
+  [opened]="modalOpened()"
+  (closed)="onModalClose()"
+>
+  <ng-template dai-modal-content>
+    <h1>hello world</h1>
+  </ng-template>
+  <ng-template dai-modal-action>
+    <button dai-button>Login</button>
+  </ng-template>
+</dai-modal>

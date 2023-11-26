@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && tailwindcss  -o ./dist/hilali/ng-daisy/style.css --minify",
+    "build": "ng build @hilali/ng-daisy && tailwindcss  -o ./dist/hilali/ng-daisy/style.css --minify",
     "watch": "ng build --watch --configuration development",
     "test": "ng run @hilali/ng-daisy:test"
   },
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.3",
+    "@angular/cdk": "^17.0.1",
     "@angular/cli": "^17.0.3",
     "@angular/compiler-cli": "^17.0.0",
     "@types/jasmine": "~5.1.0",

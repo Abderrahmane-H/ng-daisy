@@ -1,0 +1,30 @@
+<dialog
+  class="modal"
+  [open]="_opened()"
+  [class.modal-top]="_position() === 'top'"
+  [class.modal-bottom]="_position() === 'bottom'"
+  [class.modal-middle]="_position() === 'center'"
+  (close)="onClose()"
+>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 modal-close"
+      >
+        ✕
+      </button>
+    </form>
+    @if (modalContentTemplate != null) {
+    <ng-container [ngTemplateOutlet]="modalContentTemplate"></ng-container>
+    } @if (modalActionTemplate) {
+    <div class="modal-action">
+      <ng-container [ngTemplateOutlet]="modalActionTemplate"></ng-container>
+    </div>
+    }
+  </div>
+  @if(_hasBackdrop() === true) {
+  <form method="dialog" class="modal-backdrop">
+    <button type="submit">close</button>
+  </form>
+  }
+</dialog>
