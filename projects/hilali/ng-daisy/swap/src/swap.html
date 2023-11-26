@@ -1,0 +1,13 @@
+<label
+  class="swap"
+  [class.swap-rotate]="_animation() === 'rotate'"
+  [class.swap-flip]="_animation() === 'flip'"
+>
+  <input type="checkbox" />
+  <div class="swap-on">
+    <ng-content select="[swapOn],[swap-off]"></ng-content>
+  </div>
+  <div class="swap-off">
+    <ng-content select="[swapOff],[swap-on]"></ng-content>
+  </div>
+</label>
