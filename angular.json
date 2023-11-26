@@ -25,13 +25,22 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:jest",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/hilali/ng-daisy/tsconfig.spec.json",
+            "include": [
+              "**/*.spec.ts",
+              "../**/*.spec.ts"
+            ],
             "polyfills": [
               "zone.js",
               "zone.js/testing"
-            ]
+            ],
+            "assets": [],
+            "styles": [
+              "projects/hilali/ng-daisy/style.min.css"
+            ],
+            "scripts": []
           }
         }
       }

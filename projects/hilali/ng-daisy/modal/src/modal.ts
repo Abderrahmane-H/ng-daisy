@@ -2,11 +2,14 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   ContentChild,
+  ElementRef,
   EventEmitter,
   Input,
   Output,
   TemplateRef,
+  ViewChild,
   WritableSignal,
+  effect,
   signal,
 } from '@angular/core';
 import { ModalAction } from './modal-actions';
@@ -24,6 +27,9 @@ export class Modal {
   modalContentTemplate: TemplateRef<unknown> | null = null;
   @ContentChild(ModalAction, { read: TemplateRef })
   modalActionTemplate: TemplateRef<unknown> | null = null;
+
+  @ViewChild('dialog', { read: ElementRef })
+  dialog!: ElementRef<HTMLDialogElement>;
 
   /**
    * @description whether the modal is opened or not
@@ -77,7 +83,21 @@ export class Modal {
    *
    */
   onClose(): void {
+    console.log('closed');
     this._opened.set(false);
     this.closed.emit();
   }
+
+  /**
+   * @description an effect that is triggered when the opened input has changed,
+   * it opens or closes the modal natively depending on the value of the input
+   * @returns {void}
+   * */
+  private openedEffect = effect(() => {
+    if (this._opened() && this.dialog.nativeElement.open === false) {
+      this.dialog.nativeElement.showModal();
+    } else if (!this._opened() && this.dialog.nativeElement.open === true) {
+      this.dialog.nativeElement.close();
+    }
+  });
 }

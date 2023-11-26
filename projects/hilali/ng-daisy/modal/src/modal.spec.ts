@@ -19,9 +19,10 @@ describe('ModalComponent', () => {
   describe('Toggle open/close', () => {
     it('should open the modal', () => {
       modal.opened = true;
+      fixture.detectChanges();
       expect(
         (
-          fixture.debugElement.query(By.css('modal'))
+          fixture.debugElement.query(By.css('dialog'))
             .nativeElement as HTMLDialogElement
         ).open
       ).toBe(true);
@@ -29,9 +30,10 @@ describe('ModalComponent', () => {
 
     it('should close the modal', () => {
       modal.opened = false;
+      fixture.detectChanges();
       expect(
         (
-          fixture.debugElement.query(By.css('modal'))
+          fixture.debugElement.query(By.css('dialog'))
             .nativeElement as HTMLDialogElement
         ).open
       ).toBe(false);
@@ -39,12 +41,15 @@ describe('ModalComponent', () => {
 
     it('should close the modal when clicking on the backdrop', () => {
       modal.opened = true;
-      fixture.debugElement
-        .query(By.css('.modal-backdrop'))
-        .nativeElement.click();
+      modal.hasBackdrop = true;
+      fixture.detectChanges();
+      const backdrop = fixture.debugElement.query(By.css('.modal-backdrop'));
+      backdrop.nativeElement.click();
+      fixture.detectChanges();
+      expect(modal._opened()).toBe(false);
       expect(
         (
-          fixture.debugElement.query(By.css('modal'))
+          fixture.debugElement.query(By.css('dialog'))
             .nativeElement as HTMLDialogElement
         ).open
       ).toBe(false);
@@ -52,10 +57,20 @@ describe('ModalComponent', () => {
 
     it('should close the modal when clicking on the close button', () => {
       modal.opened = true;
-      fixture.debugElement.query(By.css('.modal-close')).nativeElement.click();
+      fixture.detectChanges();
       expect(
         (
-          fixture.debugElement.query(By.css('modal'))
+          fixture.debugElement.query(By.css('dialog'))
+            .nativeElement as HTMLDialogElement
+        ).open
+      ).toBe(true);
+
+      fixture.debugElement.query(By.css('.modal-close')).nativeElement.click();
+      fixture.detectChanges();
+
+      expect(
+        (
+          fixture.debugElement.query(By.css('dialog'))
             .nativeElement as HTMLDialogElement
         ).open
       ).toBe(false);
@@ -63,14 +78,27 @@ describe('ModalComponent', () => {
 
     it('should emit closed event when clicking on the close button', () => {
       modal.opened = true;
-      jest.spyOn(modal.closed, 'emit');
+      fixture.detectChanges();
+      spyOn(modal.closed, 'emit');
+
+      fixture.debugElement
+        .query(By.css('.modal-close'))
+        .nativeElement.addEventListener('click', () => {
+          console.log('clicked');
+        });
+
       fixture.debugElement.query(By.css('.modal-close')).nativeElement.click();
+      fixture.detectChanges();
+
       expect(modal.closed.emit).toHaveBeenCalled();
     });
 
     it('should emit closed event when clicking on the backdrop', () => {
       modal.opened = true;
-      jest.spyOn(modal.closed, 'emit');
+      modal.hasBackdrop = true;
+      fixture.detectChanges();
+
+      spyOn(modal.closed, 'emit');
       fixture.debugElement
         .query(By.css('.modal-backdrop'))
         .nativeElement.click();
@@ -79,7 +107,7 @@ describe('ModalComponent', () => {
 
     it('should emit closed event when calling the onClose method', () => {
       modal.opened = true;
-      jest.spyOn(modal.closed, 'emit');
+      spyOn(modal.closed, 'emit');
       modal.onClose();
       expect(modal.closed.emit).toHaveBeenCalled();
     });
@@ -91,7 +119,7 @@ describe('ModalComponent', () => {
       fixture.detectChanges();
       expect(
         (
-          fixture.debugElement.query(By.css('modal'))
+          fixture.debugElement.query(By.css('dialog'))
             .nativeElement as HTMLDialogElement
         ).open
       ).toBe(false);
@@ -102,7 +130,7 @@ describe('ModalComponent', () => {
     it('should be centered by default', () => {
       expect(
         fixture.debugElement.query(By.css('.modal')).nativeElement.classList
-      ).toContain('modal-center');
+      ).toContain('modal-middle');
     });
 
     it('should be top', () => {

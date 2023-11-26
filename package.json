@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build @hilali/ng-daisy && tailwindcss  -o ./dist/hilali/ng-daisy/style.css --minify",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng run @hilali/ng-daisy:test"
+    "build:css": "tailwindcss -o ./projects/hilali/ng-daisy/style.min.css --minify",
+    "build": "build:css && ng build @hilali/ng-daisy --configuration production",
+    "watch": "tailwindcss -o ./projects/hilali/ng-daisy/style.min.css --minify && build --watch --configuration development",
+    "test": "pnpm build:css && ng run @hilali/ng-daisy:test"
   },
   "private": true,
   "dependencies": {
