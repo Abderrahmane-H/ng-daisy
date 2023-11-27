@@ -3,6 +3,7 @@ default:
   image: node:lts-alpine3.18
   before_script:
     - apk add chromium
+    - export CHROME_BIN='/usr/bin/chromium'
     - corepack enable
     - corepack prepare pnpm@latest --activate
     - pnpm install
