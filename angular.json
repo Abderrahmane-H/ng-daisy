@@ -40,7 +40,8 @@
             "styles": [
               "projects/hilali/ng-daisy/style.min.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "karmaConfig": "projects/hilali/ng-daisy/karma.conf.js"
           }
         }
       }
@@ -120,6 +121,7 @@
               "zone.js",
               "zone.js/testing"
             ],
+            "karmaConfig": "projects/hilali/ng-daisy/karma.conf.js",
             "tsConfig": "projects/docs/tsconfig.spec.json",
             "assets": [
               "projects/docs/src/favicon.ico",

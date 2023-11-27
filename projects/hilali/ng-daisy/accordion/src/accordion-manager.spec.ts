@@ -95,10 +95,9 @@ describe('AccordionManager', () => {
 
   it('should toggle an item', () => {
     manager.toggle(item1);
-    console.log(item1._opened);
     expect(item1._opened).toBe(true);
+
     manager.toggle(item1);
-    console.log(item1._opened);
     expect(item1._opened).toBe(false);
   });
 
