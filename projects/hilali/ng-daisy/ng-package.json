@@ -5,6 +5,6 @@
     "./style.min.css"
   ],
   "lib": {
-    "entryFile": "src/public-api.ts"
+    "entryFile": "index.ts"
   }
 }

@@ -1,12 +1,6 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
-const Config = require('karma').Config;
-
-/**
- *
- * @param {Config} config
- */
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -37,7 +31,21 @@ module.exports = function (config) {
       reporters: [
         { type: 'html' },
         { type: 'text-summary' }
-      ]
+      ],
+      check: {
+        global: {
+          statements: 80,
+          branches: 80,
+          functions: 80,
+          lines: 80
+        }
+      },
+      watermarks: {
+        statements: [50, 75],
+        functions: [50, 75],
+        branches: [50, 75],
+        lines: [50, 75]
+      },
     },
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome', 'ChromeHeadless', 'chrome_headless_nosandbox'],

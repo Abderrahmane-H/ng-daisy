@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/hilali/ng-daisy",
       "sourceRoot": "projects/hilali/ng-daisy/src",
-      "prefix": "lib",
+      "prefix": "dai",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -30,17 +30,15 @@
             "tsConfig": "projects/hilali/ng-daisy/tsconfig.spec.json",
             "include": [
               "**/*.spec.ts",
-              "../**/*.spec.ts"
+              "../../**/*.spec.ts"
             ],
             "polyfills": [
               "zone.js",
               "zone.js/testing"
             ],
-            "assets": [],
             "styles": [
               "projects/hilali/ng-daisy/style.min.css"
             ],
-            "scripts": [],
             "karmaConfig": "projects/hilali/ng-daisy/karma.conf.js"
           }
         }
