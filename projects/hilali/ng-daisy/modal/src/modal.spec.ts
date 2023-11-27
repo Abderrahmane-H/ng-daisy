@@ -81,12 +81,6 @@ describe('ModalComponent', () => {
       fixture.detectChanges();
       spyOn(modal.closed, 'emit');
 
-      fixture.debugElement
-        .query(By.css('.modal-close'))
-        .nativeElement.addEventListener('click', () => {
-          console.log('clicked');
-        });
-
       fixture.debugElement.query(By.css('.modal-close')).nativeElement.click();
       fixture.detectChanges();
 

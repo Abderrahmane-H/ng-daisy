@@ -83,7 +83,6 @@ export class Modal {
    *
    */
   onClose(): void {
-    console.log('closed');
     this._opened.set(false);
     this.closed.emit();
   }
