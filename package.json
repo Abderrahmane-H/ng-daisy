@@ -8,7 +8,7 @@
     "build": "pnpm build:css && ng build @hilali/ng-daisy --configuration production",
     "watch": "tailwindcss -o ./projects/hilali/ng-daisy/style.min.css --minify && build --watch --configuration development",
     "test": "pnpm build:css && ng run @hilali/ng-daisy:test",
-    "test:ci": "ng run @hilali/ng-daisy:test --watch=false --code-coverage"
+    "test:ci": "ng run @hilali/ng-daisy:test --watch=false --browsers=chrome_headless_nosandbox --code-coverage"
   },
   "private": true,
   "dependencies": {
@@ -31,6 +31,7 @@
     "@angular/compiler-cli": "^17.0.0",
     "@types/jasmine": "~5.1.0",
     "@types/jest": "^29.5.10",
+    "@types/karma": "^6.3.8",
     "autoprefixer": "^10.4.16",
     "daisyui": "^4.4.7",
     "jasmine-core": "~5.1.0",

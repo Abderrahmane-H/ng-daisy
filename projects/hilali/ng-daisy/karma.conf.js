@@ -1,6 +1,12 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+const Config = require('karma').Config;
+
+/**
+ *
+ * @param {Config} config
+ */
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -12,6 +18,7 @@ module.exports = function (config) {
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
+    directConnect: true,
     client: {
       jasmine: {
         // you can add configuration options for Jasmine here
@@ -33,13 +40,13 @@ module.exports = function (config) {
       ]
     },
     reporters: ['progress', 'kjhtml'],
-    browsers: ['ChromeHeadlessCI'],
+    browsers: ['Chrome', 'ChromeHeadless', 'chrome_headless_nosandbox'],
     restartOnFileChange: true,
-    custumLaunchers: {
-      ChromeHeadlessCI: {
+    customLaunchers: {
+      chrome_headless_nosandbox: {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox']
-      }
+      },
     }
   });
 };
