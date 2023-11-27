@@ -25,7 +25,10 @@ export const DAI_ACCORDION: InjectionToken<Accordion> =
   ],
 })
 export class Accordion implements AfterContentInit {
-  @ContentChildren(AccordionItem, { read: AccordionItem })
+  @ContentChildren(AccordionItem, {
+    read: AccordionItem,
+    emitDistinctChangesOnly: true,
+  })
   items!: QueryList<AccordionItem>;
 
   @Input() set join(joined: boolean) {
