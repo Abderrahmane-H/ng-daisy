@@ -82,7 +82,7 @@ describe('collapse', () => {
 
     it('Should have classes', () => {
       expect(titleEl.classList).toContain('collapse-title');
-      expect(titleEl.classList).toContain('pointer');
+      expect(titleEl.classList).toContain('cursor-pointer');
       expect(titleEl.classList).toContain('text-xl');
       expect(titleEl.classList).toContain('font-medium');
     });

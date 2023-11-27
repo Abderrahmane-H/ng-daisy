@@ -15,7 +15,7 @@ export class CollapseTitle implements OnDestroy {
       'collapse-title',
       'text-xl',
       'font-medium',
-      'pointer'
+      'cursor-pointer'
     );
     this.renderer.setAttribute(this.el.nativeElement, 'tabindex', '0');
   }
