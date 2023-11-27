@@ -1,0 +1,7 @@
+{
+  "$schema": "../../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../dist/hilali/ng-daisy",
+  "lib": {
+    "entryFile": "index.ts"
+  }
+}
