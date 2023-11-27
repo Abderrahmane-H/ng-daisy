@@ -7,6 +7,7 @@ import {
   Input,
   QueryList,
   WritableSignal,
+  effect,
   signal,
 } from '@angular/core';
 import { AccordionItem } from './accordion-item';
@@ -31,22 +32,22 @@ export class Accordion implements AfterContentInit {
   })
   items!: QueryList<AccordionItem>;
 
+  /**
+   * Whether the accordion items are joined or not.
+   */
   @Input() set join(joined: boolean) {
     this.joined.set(joined);
-    if (joined) {
-      this.el.nativeElement.classList.add('join', 'join-vertical', 'w-full');
-      this.items.forEach((item) => item.makeJoined());
-    } else {
-      this.el.nativeElement.classList.remove('join', 'join-vertical');
-      this.items.forEach((item) => item.makeUnjoined());
-    }
   }
-
+  /**
+   * The icon to use for the accordion items.
+   */
   @Input({ alias: 'icon' }) set _icon(icon: 'plus' | 'arrow' | null) {
     this.icon.set(icon);
-    this.items.forEach((item) => item.setIcon(icon));
   }
 
+  /**
+   * Whether the accordion items can be opened simultaneously or not.
+   */
   @Input({ alias: 'multiple' }) set _multiple(multiple: boolean) {
     this.multiple.set(multiple);
     this.manager.multiple = multiple;
@@ -70,7 +71,21 @@ export class Accordion implements AfterContentInit {
   constructor(
     private readonly el: ElementRef<HTMLElement>,
     public readonly manager: AccordionManager
-  ) {}
+  ) {
+    effect(() => {
+      if (this.joined()) {
+        this.el.nativeElement.classList.add('join', 'join-vertical', 'w-full');
+        this.items.forEach((item) => item.makeJoined());
+      } else {
+        this.el.nativeElement.classList.remove('join', 'join-vertical');
+        this.items.forEach((item) => item.makeUnjoined());
+      }
+    });
+
+    effect(() => {
+      this.items.forEach((item) => item.setIcon(this.icon()));
+    });
+  }
 
   ngAfterContentInit(): void {
     this.items.forEach((item) => this.manager.register(item));
