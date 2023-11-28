@@ -14,7 +14,8 @@ export class SizeManager {
 
   public setSize(element: HTMLElement, size: DaiSize, prefix: string): void {
     this.reset(element, prefix);
-    this.renderer.addClass(element, `${prefix}${size}`);
+    const htmlClass = `${prefix}-${size}`;
+    this.renderer.addClass(element, htmlClass);
   }
 
   private reset(element: HTMLElement, prefix: string): void {
