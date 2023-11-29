@@ -14,11 +14,13 @@ stages:
   - deploy
 
 build:
+  needs: []
   stage: build
   script:
     - pnpm run build
 
 test:
+  needs: []
   stage: test
   script:
     - pnpm run test:ci
