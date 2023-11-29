@@ -7,8 +7,8 @@ import {
   Self,
 } from '@angular/core';
 import { FormControlDirective } from '@angular/forms';
-import { DaiColor, DaiSize } from '../../../../../../dist/hilali/ng-daisy';
-import { BaseInput } from '../../base-input';
+import { DaiColor, DaiSize } from '@hilali/ng-daisy/common';
+import { BaseInput } from '@hilali/ng-daisy/inputs';
 
 @Directive({
   selector: 'input[type="checkbox"][daiToggle]',

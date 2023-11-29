@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormControlDirective } from '@angular/forms';
 import { DaiColor, DaiSize, SizeManager } from '@hilali/ng-daisy/common';
-import { BaseInput } from '../../base-input';
+import { BaseInput } from '@hilali/ng-daisy/inputs';
 
 @Directive({
   selector: 'input[type="range"], input[type="range"][daiRange]',
