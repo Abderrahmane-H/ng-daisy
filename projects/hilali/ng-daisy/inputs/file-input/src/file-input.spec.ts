@@ -1,19 +1,25 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { FileInput } from './file-input';
 
 @Component({
   selector: 'dai-test',
-  template: `<input type="file" daiFileInput />`,
-  imports: [FileInput],
+  template: `<input type="file" daiFileInput [formControl]="fileInputForm" />`,
+  imports: [FileInput, ReactiveFormsModule],
   standalone: true,
 })
-export class TestFileInput {}
+export class TestFileInput {
+  fileInputForm = new FormControl<File | null>(null, {
+    validators: [Validators.required],
+  });
+}
 
 describe('FileInput', () => {
   let fileInput: FileInput;
   let fixture: ComponentFixture<TestFileInput>;
+  let testComponent: TestFileInput;
   let fileInputEl: HTMLElement;
 
   beforeEach(async () => {
@@ -28,6 +34,7 @@ describe('FileInput', () => {
       .query(By.directive(FileInput))
       .injector.get(FileInput);
     fileInputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+    testComponent = fixture.componentInstance;
 
     fixture.detectChanges();
   });
@@ -147,12 +154,39 @@ describe('FileInput', () => {
       fixture.detectChanges();
       expect(fileInputEl.classList).toContain('file-input-ghost');
     });
+  });
 
-    it('should set the variant to default', () => {
-      fileInput.variant = 'default';
+  describe('status', () => {
+    it('should set the status to success', () => {
+      fileInput.status = 'success';
       fixture.detectChanges();
-      expect(fileInputEl.classList).not.toContain('file-input-ghost');
-      expect(fileInputEl.classList).not.toContain('file-input-bordered');
+      expect(fileInputEl.classList).toContain('file-input-success');
+    });
+
+    it('should set the status to error', () => {
+      fileInput.status = 'error';
+      fixture.detectChanges();
+      expect(fileInputEl.classList).toContain('file-input-error');
+    });
+
+    it('should set the status to default', () => {
+      fileInput.status = 'default';
+      fixture.detectChanges();
+      expect(fileInputEl.classList).toContain('file-input-neutral');
+    });
+  });
+
+  describe('disabled', () => {
+    it('should be disabled', () => {
+      fileInput.disabled = true;
+      fixture.detectChanges();
+      expect(fileInputEl.getAttribute('disabled')).toEqual('true');
+    });
+
+    it('should set the disabled to false', () => {
+      fileInput.disabled = false;
+      fixture.detectChanges();
+      expect(fileInputEl.getAttribute('disabled')).toBeNull();
     });
   });
 });

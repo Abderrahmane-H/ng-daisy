@@ -1,10 +1,14 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 import {
-  ColorManager,
-  DaiColor,
-  DaiSize,
-  SizeManager,
-} from '@hilali/ng-daisy/common';
+  Directive,
+  ElementRef,
+  Optional,
+  Renderer2,
+  Self,
+  untracked,
+} from '@angular/core';
+import { FormControlDirective } from '@angular/forms';
+import { DaiColor, DaiSize, SizeManager } from '@hilali/ng-daisy/common';
+import { BaseInput } from '../../base-input';
 
 @Directive({
   selector: 'input[type="file"], input[type="file"][daiFileInput]',
@@ -12,34 +16,13 @@ import {
   standalone: true,
   providers: [{ provide: SizeManager, useClass: SizeManager }],
 })
-export class FileInput extends ColorManager {
-  @Input() set size(size: DaiSize) {
-    this.sizeManager.setSize(this.el.nativeElement, size, 'file-input');
-  }
-
-  @Input() set color(v: DaiColor) {
-    this.setColor(this.el.nativeElement, v, 'file-input');
-  }
-
-  @Input() set variant(v: 'ghost' | 'bordered' | 'default') {
-    if (v === 'ghost') {
-      this.renderer.removeClass(this.el.nativeElement, 'file-input-bordered');
-      this.renderer.addClass(this.el.nativeElement, 'file-input-ghost');
-    } else if (v === 'bordered') {
-      this.renderer.removeClass(this.el.nativeElement, 'file-input-ghost');
-      this.renderer.addClass(this.el.nativeElement, 'file-input-bordered');
-    } else {
-      this.renderer.removeClass(this.el.nativeElement, 'file-input-ghost');
-      this.renderer.removeClass(this.el.nativeElement, 'file-input-bordered');
-    }
-  }
-
+export class FileInput extends BaseInput {
   constructor(
-    private readonly el: ElementRef<HTMLInputElement>,
-    private readonly renderer: Renderer2,
-    private readonly sizeManager: SizeManager
+    el: ElementRef<HTMLInputElement>,
+    renderer: Renderer2,
+    @Optional() @Self() formControl: FormControlDirective
   ) {
-    super(renderer);
+    super(el, renderer, formControl);
     this.renderer.addClass(this.el.nativeElement, 'file-input');
   }
 
@@ -55,5 +38,57 @@ export class FileInput extends ColorManager {
    */
   get name(): string {
     return this.el.nativeElement.name;
+  }
+
+  protected override get _defaultClasses(): string[] {
+    return [
+      'file-input',
+      'file-input-bordered',
+      'file-input-neutral',
+      'file-input-md',
+    ];
+  }
+
+  protected override updateColor(color: DaiColor): void {
+    this.el.nativeElement.classList.remove(
+      'file-input-primary',
+      'file-input-secondary',
+      'file-input-success',
+      'file-input-warning',
+      'file-input-error',
+      'file-input-neutral',
+      'file-input-info'
+    );
+    this.renderer.addClass(this.el.nativeElement, `file-input-${color}`);
+  }
+
+  protected override updateSize(size: DaiSize): void {
+    this.el.nativeElement.classList.remove(
+      'file-input-xs',
+      'file-input-sm',
+      'file-input-md',
+      'file-input-lg'
+    );
+    this.renderer.addClass(this.el.nativeElement, `file-input-${size}`);
+  }
+
+  protected override updateVariant(variant: 'ghost' | 'bordered'): void {
+    this.el.nativeElement.classList.remove(
+      'file-input-ghost',
+      'file-input-bordered'
+    );
+    this.renderer.addClass(this.el.nativeElement, `file-input-${variant}`);
+  }
+
+  protected override updateStatus(
+    status: 'success' | 'error' | 'default'
+  ): void {
+    if (status === 'success') {
+      this.updateColor('success');
+    } else if (status === 'error') {
+      this.updateColor('error');
+    } else {
+      this.updateColor(untracked(this._color));
+    }
   }
 }
