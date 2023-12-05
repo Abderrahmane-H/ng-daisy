@@ -103,4 +103,25 @@ describe('AvatarComponent', () => {
       expect(el.classList).not.toContain('ring-offset-2');
     });
   });
+
+  describe('presence', () => {
+    it('should be online', () => {
+      component.presence = 'online';
+      fixture.detectChanges();
+      expect(component['el'].nativeElement.classList).toContain('online');
+    });
+
+    it('should be offline', () => {
+      component.presence = 'offline';
+      fixture.detectChanges();
+      expect(component['el'].nativeElement.classList).toContain('offline');
+    });
+
+    it('should have no presence indicator', () => {
+      component.presence = null;
+      fixture.detectChanges();
+      expect(component['el'].nativeElement.classList).not.toContain('offline');
+      expect(component['el'].nativeElement.classList).not.toContain('online');
+    });
+  });
 });

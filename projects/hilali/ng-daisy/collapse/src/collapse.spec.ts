@@ -36,7 +36,7 @@ describe('collapse', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     collapseEl = fixture.debugElement.query(
-      By.css('dai-collapse')
+      By.directive(Collapse)
     ).nativeElement;
     collapse = fixture.debugElement
       .query(By.directive(Collapse))
@@ -107,6 +107,8 @@ describe('collapse', () => {
       fixture.detectChanges();
       expect(collapse._opened).toBe(true);
       expect(collapseEl.getAttribute('aria-expanded')).toBe('true');
+      expect(collapseEl.classList).toContain('collapse-open');
+      expect(collapseEl.classList).not.toContain('collapse-close');
     });
 
     it('should close when the title is clicked', () => {
@@ -116,6 +118,65 @@ describe('collapse', () => {
       fixture.detectChanges(); // should be closed ?
       expect(collapse._opened).toBe(false);
       expect(collapseEl.getAttribute('aria-expanded')).toBe('false');
+      expect(collapseEl.classList).toContain('collapse-close');
+      expect(collapseEl.classList).not.toContain('collapse-open');
+    });
+
+    it('should open when open input is set to true', () => {
+      collapse.opened = true;
+      fixture.detectChanges();
+      expect(collapse._opened).toBe(true);
+      expect(collapseEl.getAttribute('aria-expanded')).toBe('true');
+      expect(collapseEl.classList).toContain('collapse-open');
+      expect(collapseEl.classList).not.toContain('collapse-close');
+    });
+
+    it('should close when open input is set to false', () => {
+      collapse.opened = false;
+      fixture.detectChanges();
+      expect(collapse._opened).toBe(false);
+      expect(collapseEl.getAttribute('aria-expanded')).toBe('false');
+      expect(collapseEl.classList).toContain('collapse-close');
+      expect(collapseEl.classList).not.toContain('collapse-open');
+    });
+  });
+
+  describe('icon', () => {
+    it('should have ni icon by default', () => {
+      expect(collapseEl.classList).not.toContain('collapse-plus');
+      expect(collapseEl.classList).not.toContain('collapse-arrow');
+    });
+
+    it('should have an icon of arrow', () => {
+      collapse.icon = 'arrow';
+      fixture.detectChanges();
+      expect(collapseEl.classList).toContain('collapse-arrow');
+      expect(collapseEl.classList).not.toContain('collapse-plus');
+    });
+
+    it('should have an icon of plus', () => {
+      collapse.icon = 'plus';
+      fixture.detectChanges();
+      expect(collapseEl.classList).toContain('collapse-plus');
+      expect(collapseEl.classList).not.toContain('collapse-arrow');
+    });
+
+    it('should have no icon', () => {
+      collapse.icon = 'none';
+      fixture.detectChanges();
+      expect(collapseEl.classList).not.toContain('collapse-plus');
+      expect(collapseEl.classList).not.toContain('collapse-arrow');
+    });
+  });
+
+  describe('id', () => {
+    it('should have an id', () => {
+      collapse.id = 'test';
+      expect(collapseEl.id).toEqual('test');
+    });
+
+    it('should have the same id as the title', () => {
+      expect(collapseEl.id).toBe(titleEl.id);
     });
   });
 });

@@ -7,7 +7,7 @@
     "build:css": "tailwindcss -o ./projects/hilali/ng-daisy/style.min.css --minify",
     "build": "pnpm build:css && ng build @hilali/ng-daisy --configuration production",
     "watch": "tailwindcss -o ./projects/hilali/ng-daisy/style.min.css --minify && build --watch --configuration development",
-    "test": "pnpm build:css && ng run @hilali/ng-daisy:test --browsers=Chrome",
+    "test": "pnpm build:css && ng run @hilali/ng-daisy:test --browsers=Chrome --code-coverage",
     "test:ci": "ng run @hilali/ng-daisy:test --watch=false --browsers=chrome_headless_nosandbox --code-coverage"
   },
   "private": true,
