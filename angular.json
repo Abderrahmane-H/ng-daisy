@@ -6,7 +6,7 @@
     "@hilali/ng-daisy": {
       "projectType": "library",
       "root": "projects/hilali/ng-daisy",
-      "sourceRoot": "projects/hilali/ng-daisy/src",
+      "sourceRoot": "projects/hilali/ng-daisy/",
       "prefix": "dai",
       "architect": {
         "build": {
@@ -29,8 +29,7 @@
           "options": {
             "tsConfig": "projects/hilali/ng-daisy/tsconfig.spec.json",
             "include": [
-              "**/*.spec.ts",
-              "../../**/*.spec.ts"
+              "**/*.spec.ts"
             ],
             "polyfills": [
               "zone.js",
