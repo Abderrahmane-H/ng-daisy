@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormControlDirective } from '@angular/forms';
 import { DaiColor, DaiSize } from '@hilali/ng-daisy/common';
-import { BaseInput } from '@hilali/ng-daisy/inputs/base-input';
+import { BaseInput } from '@hilali/ng-daisy/inputs';
 
 @Directive({
   selector: 'textarea[daiTextarea]',
