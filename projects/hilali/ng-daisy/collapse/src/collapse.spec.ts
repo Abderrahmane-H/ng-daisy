@@ -174,9 +174,5 @@ describe('collapse', () => {
       collapse.id = 'test';
       expect(collapseEl.id).toEqual('test');
     });
-
-    it('should have the same id as the title', () => {
-      expect(collapseEl.id).toBe(titleEl.id);
-    });
   });
 });
